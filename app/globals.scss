@@ -1,0 +1,31 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bluePurpleColor: #987EFF;
+    --blueGreenColor : #3FD4F4;
+    --yellowColor : #FAC608;
+    --pinkColor : #FD99AF;
+    --grayColor : #797888;
+    --purpleColor : #CB8EFE;
+}
+.blue-bullet{
+    background-color: var(--blueGreenColor);
+}
+.pink-bullet{
+    background-color: var(--pinkColor);
+}
+.yellow-bullet{
+    background-color: var(--yellowColor);
+}
+
+@font-face {
+    font-family: 'Meera Inimai', sans-serif;
+    src : url("https://fonts.googleapis.com/css2?family=Meera+Inimai&display=swap");
+    font-display: swap;
+}
+
+@import '../Styles/App.scss'
