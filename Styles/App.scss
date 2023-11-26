@@ -16,6 +16,18 @@ body {
             max-height: 700px;
             border: 7px solid white;
             border-radius: 17px;
+            position: relative;
+
+            .circle-pink {
+                position: absolute;
+                width: 300px;
+                height: 300px;
+                border-radius: 50%;
+                background-color: var(--pinkColor);
+                bottom: 0;
+                left: 0;
+                transform: translate(-70%, 70%);
+            }
 
             >.left-side {
                 width: 25%;
@@ -60,7 +72,7 @@ body {
 
                                     &:nth-of-type(1) {
                                         font-size: 17px;
-                                        color: var(--grayColor);
+                                        color: var(--lightGrayColor);
                                     }
 
                                     &:nth-of-type(2) {
@@ -79,20 +91,41 @@ body {
                     border: 1px solid blue;
 
                     >.task-details-top {
-                        border: 1px solid red;
+                        // border: 1px solid red;
 
                         >div {
-                            border: 1px solid black;
+                            // border: 1px solid black;
 
                             &:nth-of-type(1) {
-                                text-align: center;
+                                i {
+                                    display: block;
+                                    text-align: center;
+                                    color: var(--purpleColor);
+                                    font-size: 18px;
+                                }
                             }
 
                             &:nth-of-type(2) {
                                 >p {
                                     font-size: 18px;
-                                    color: var(--grayColor);
+                                    color: var(--lightGrayColor);
                                     font-weight: 500;
+                                }
+
+                                ul#minimize-task {
+                                    >li {
+                                        >span {
+                                            display: block;
+                                            width: 13px;
+                                            height: 13px;
+                                            border-radius: 50%;
+                                        }
+
+                                        >p {
+                                            color: var(--boldGrayColor);
+                                            font-weight: 600;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -136,7 +169,7 @@ body {
                 .todo-items-container {
                     width: 78%;
                     height: 600px;
-                    border: 1px solid black;
+                    // border: 1px solid black;
                     padding: 10px;
 
                     >.todo-items-container-top {
@@ -169,7 +202,7 @@ body {
                                 border-radius: 18px;
 
                                 ::placeholder {
-                                    color: var(--grayColor);
+                                    color: var(--lightGrayColor);
                                 }
                             }
 
@@ -205,8 +238,92 @@ body {
                         }
 
                         >.generated-items-container {
-                            border: 1px solid red;
+                            // border: 1px solid red;
                             height: 320px;
+
+                            >div {
+                                overflow-y: auto;
+
+                                &::-webkit-scrollbar {
+                                    width: 12px;
+                                    background-color: white;
+                                    border-radius: 8px;
+                                }
+
+                                &::-webkit-scrollbar-thumb {
+                                    background-color: var(--purpleColor);
+                                    border-radius: 8px;
+                                }
+
+                                #list {
+                                    height: fit-content;
+
+                                    li {
+                                        background-color: white;
+                                        padding: 9px 0 9px 50px;
+                                        width: -webkit-fill-available;
+                                        border-radius: 18px;
+                                        position: relative;
+                                        margin: 0 0 10px 0;
+
+                                        >span {
+                                            display: block;
+                                            width: 13px;
+                                            height: 13px;
+                                            position: absolute;
+                                            border-radius: 50%;
+                                            left: 10px;
+                                            top: 50%;
+                                            transform: translateY(-50%);
+                                        }
+
+                                        p {
+                                            color: var(--boldGrayColor);
+                                            font-weight: 600;
+                                        }
+
+                                        p.generated-items-time {
+                                            position: absolute;
+                                            left: 68%;
+                                        }
+
+                                        div.sample-check-tick {
+                                            position: absolute;
+                                            right: 5%;
+                                            width: 25px;
+                                            height: 25px;
+                                            border: 1px solid var(--boldGrayColor);
+                                            border-radius: 50%;
+                                            transition: 0.3s ease;
+                                        }
+
+                                        >i {
+                                            position: absolute;
+                                            right: 5%;
+                                            font-size: 25px;
+                                            color: var(--purpleColor);
+                                            display: inline-flex;
+                                            transition: 0.3s ease;
+                                        }
+
+                                        >i.remove-todo {
+                                            position: absolute;
+                                            right: 15%;
+                                            top: 16%;
+                                            font-size: 30px;
+                                            cursor: pointer;
+                                        }
+
+                                        .hide-check-tick {
+                                            opacity: 0;
+                                            visibility: hidden;
+                                            transition: 0.3s ease;
+                                        }
+
+
+                                    }
+                                }
+                            }
                         }
                     }
                 }

@@ -1,12 +1,26 @@
+"use client"
+
+
+import { useState, useEffect } from "react"
 import Image from "next/image";
 import TodoItems from "./TodoItems";
+import { useDataStore } from "./Store/Store";
 
 
 const TodoContainer: React.FC = () => {
+    const { DataList } = useDataStore(state => state)
+
+
+    useEffect(() => {
+        for (let i = 3; i < DataList.length; i++) {
+            (document.querySelector(`#minimize-task>li:nth-of-type(${i+1})`) as HTMLElement).style.display = "none"
+        }
+    }, [DataList])
+
+
     return (
         <section className="container-todo flex">
-
-            <div className="circle-yellow"></div>
+            <div className="circle-pink"></div>
             <div className="left-side">
                 <div className="info-container">
                     <div className="info flex">
@@ -25,15 +39,19 @@ const TodoContainer: React.FC = () => {
                 <div className="task-details">
                     <div className="task-details-top flex">
                         <div className="w-[30%]">
-                            <p>left</p>
+                            <i className="bi bi-calendar"></i>
                         </div>
                         <div className="w-[70%]">
                             <p>Today tasks</p>
-                            <ul>
-                                <li>1</li>
-                                <li>1</li>
-                                <li>1</li>
-                                <li>1</li>
+                            <ul id="minimize-task" className="mt-2">
+                                {
+                                    DataList?.map(el => (
+                                        <li key={el.id} className="flex items-center mb-2">
+                                            <span className="mr-3" style={{background:el.backGround}}></span>
+                                            <p>{el.text}</p>
+                                        </li>
+                                    ))
+                                }
                             </ul>
                         </div>
                     </div>
