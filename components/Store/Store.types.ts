@@ -15,6 +15,9 @@ export type StoreType = {
     DataList : DataListType[] ,
     DataListClone : DataListType[] ,
     generateItems : (state:DataListType) => void
-    toggleCompleted : (id:string) => void ,
-    removeTodo : (id:string) => void
+    toggleCompleted : (id:string) => void 
+    removeTodo : (id:string) => void 
+    completedTodo : () => void
+    allTodo : () => void 
+    unCompleted: () => void
 }

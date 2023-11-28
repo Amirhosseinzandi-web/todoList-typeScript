@@ -1,11 +1,11 @@
 "use client"
-import { useState, useEffect, useRef , memo} from "react"
+import { useState, useEffect, useRef, memo } from "react"
 import { useDataStore } from "./Store/Store"
 import { DataListType } from "./Store/Store.types"
 
 
 const TodoItems: React.FC = () => {
-    const { generateItems, DataList, toggleCompleted , removeTodo} = useDataStore(state => state)
+    const { generateItems, DataList, DataListClone , toggleCompleted, removeTodo } = useDataStore(state => state)
     const [inputVal, setInputVal] = useState("" as string)
     const [colorIndex, setColorIndex] = useState(0 as number)
     const [bgColor, setBgColor] = useState("" as string)
@@ -17,7 +17,7 @@ const TodoItems: React.FC = () => {
     const GenerateDataHandler = () => {
         setColorIndex(colorIndex + 1)
         const date = new Date();
-        
+
 
         const data: DataListType = {
             id: crypto.randomUUID(),
@@ -51,26 +51,6 @@ const TodoItems: React.FC = () => {
 
     }, [colorIndex])
 
-
-    const CheckTickHandler = (e: React.MouseEvent, id: string) => {
-
-        const parentElement = (e.target as HTMLElement).parentElement!
-
-        // const findInd = DataList.find(item => item.id === id)
-        // if (findInd) {
-        //     findInd.completed = !findInd.completed
-        //     setUpdate(!update)
-        // }
-        toggleCompleted(id)
-
-        if (parentElement.querySelector(".sample-check-tick")?.classList.contains("hide-check-tick")) {
-            parentElement.querySelector(".sample-check-tick")?.classList.remove("hide-check-tick");
-            parentElement.querySelector(".icon-tick")?.classList.add("hide-check-tick")
-        } else {
-            parentElement.querySelector(".sample-check-tick")?.classList.add("hide-check-tick");
-            parentElement.querySelector(".icon-tick")?.classList.remove("hide-check-tick")
-        }
-    }
 
 
     return (
@@ -108,9 +88,9 @@ const TodoItems: React.FC = () => {
                                         <span className="ml-3" style={{ background: el.backGround }}></span>
                                         <p>{el.text}</p>
                                         <p className="generated-items-time">{el.time}</p>
-                                        <div onClick={(e) => CheckTickHandler(e, el.id)} className="sample-check-tick"></div>
-                                        <i onClick={(e) => CheckTickHandler(e, el.id)} className="bi bi-check-circle icon-tick hide-check-tick"></i>
-                                        <i onClick={()=>removeTodo(el.id)} className="remove-todo">*</i>
+                                        <div onClick={(e) => toggleCompleted(el.id)} className={`${el.completed ? "hide-sample-check-tick" : "sample-check-tick"}`}></div>
+                                        <i onClick={(e) => toggleCompleted(el.id)} className={`icon-tick ${el.completed ? "bi bi-check-circle" : ""}`}></i>
+                                        <i onClick={() => removeTodo(el.id)} className="bi bi-x-lg remove-todo"></i>
                                     </li>
                                 ))
                             }

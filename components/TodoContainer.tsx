@@ -1,21 +1,43 @@
 "use client"
 
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import Image from "next/image";
 import TodoItems from "./TodoItems";
 import { useDataStore } from "./Store/Store";
 
 
 const TodoContainer: React.FC = () => {
-    const { DataList } = useDataStore(state => state)
+    const { DataList, DataListClone, completedTodo, allTodo, unCompleted } = useDataStore(state => state)
 
 
     useEffect(() => {
-        for (let i = 3; i < DataList.length; i++) {
-            (document.querySelector(`#minimize-task>li:nth-of-type(${i+1})`) as HTMLElement).style.display = "none"
+        const listItems = document.querySelectorAll("#minimize-task>li")!
+
+        listItems.forEach((el , ind)=>{
+            if(ind>2){
+                (el as HTMLElement).style.display = "none"
+            }
+        });
+        
+        // const visibleItems = document.querySelectorAll("#minimize-task >li[style*='display: none']");
+        
+        // listItems.forEach((item , ind)=>{
+        //     if(visibleItems.length<3 && ind ===2){
+        //         (item as HTMLElement).style.display = "flex"
+        //     }
+        // })      
+
+        // or
+
+        const visibleItems = [...listItems].filter(el=>(el as HTMLElement).style.display !== "none")
+
+        if(visibleItems.length<3 && listItems.length>visibleItems.length){
+            (listItems[visibleItems.length] as HTMLElement).style.display = "flex"
         }
-    }, [DataList])
+    
+    }, [DataListClone]);
+
 
 
     return (
@@ -37,7 +59,7 @@ const TodoContainer: React.FC = () => {
                     </div>
                 </div>
                 <div className="task-details">
-                    <div className="task-details-top flex">
+                    <div className="task-details-items flex">
                         <div className="w-[30%]">
                             <i className="bi bi-calendar"></i>
                         </div>
@@ -45,15 +67,26 @@ const TodoContainer: React.FC = () => {
                             <p>Today tasks</p>
                             <ul id="minimize-task" className="mt-2">
                                 {
-                                    DataList?.map(el => (
+                                    DataListClone?.map(el => (
                                         <li key={el.id} className="flex items-center mb-2">
-                                            <span className="mr-3" style={{background:el.backGround}}></span>
+                                            <span className="mr-3" style={{ background: el.backGround }}></span>
                                             <p>{el.text}</p>
                                         </li>
                                     ))
                                 }
                             </ul>
                         </div>
+                    </div>
+                </div>
+                <div className="filter-tab flex">
+                    <div className="w-[30%]"><i className="bi bi-filter-right"></i></div>
+                    <div className="w-[70%]">
+                        <p>Filterd</p>
+                        <ul className="mt-7">
+                            <li onClick={() => allTodo()}>All</li>
+                            <li onClick={() => completedTodo()}>completed</li>
+                            <li onClick={() => unCompleted()}>uncompleted</li>
+                        </ul>
                     </div>
                 </div>
             </div>
