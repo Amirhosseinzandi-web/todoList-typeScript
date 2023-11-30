@@ -14,14 +14,14 @@ const TodoContainer: React.FC = () => {
     useEffect(() => {
         const listItems = document.querySelectorAll("#minimize-task>li")!
 
-        listItems.forEach((el , ind)=>{
-            if(ind>2){
+        listItems.forEach((el, ind) => {
+            if (ind > 2) {
                 (el as HTMLElement).style.display = "none"
             }
         });
-        
+
         // const visibleItems = document.querySelectorAll("#minimize-task >li[style*='display: none']");
-        
+
         // listItems.forEach((item , ind)=>{
         //     if(visibleItems.length<3 && ind ===2){
         //         (item as HTMLElement).style.display = "flex"
@@ -30,12 +30,12 @@ const TodoContainer: React.FC = () => {
 
         // or
 
-        const visibleItems = [...listItems].filter(el=>(el as HTMLElement).style.display !== "none")
+        const visibleItems = [...listItems].filter(el => (el as HTMLElement).style.display !== "none")
 
-        if(visibleItems.length<3 && listItems.length>visibleItems.length){
+        if (visibleItems.length < 3 && listItems.length > visibleItems.length) {
             (listItems[visibleItems.length] as HTMLElement).style.display = "flex"
         }
-    
+
     }, [DataListClone]);
 
 
@@ -88,6 +88,10 @@ const TodoContainer: React.FC = () => {
                             <li onClick={() => unCompleted()}>uncompleted</li>
                         </ul>
                     </div>
+                </div>
+                <div className="scheduled-tasks mt-10 flex">
+                    <div className="w-[30%] flex justify-center items-center"><i className="bi bi-window-stack"></i></div>
+                    <div className="w-[70%]"><p>Scheduled tasks</p></div>
                 </div>
             </div>
 

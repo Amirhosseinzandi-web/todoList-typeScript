@@ -1,3 +1,14 @@
+.task-details-title-style {
+    font-size: 17px;
+    color: var(--boldGrayColor);
+    font-weight: 600;
+}
+.completed{
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+
 body {
     height: 100vh;
     background-color: var(--bluePurpleColor);
@@ -104,9 +115,7 @@ body {
 
                             &:nth-of-type(2) {
                                 >p {
-                                    font-size: 18px;
-                                    color: var(--boldGrayColor);
-                                    font-weight: 600;
+                                    @extend .task-details-title-style;
                                 }
 
                                 ul#minimize-task {
@@ -147,9 +156,7 @@ body {
 
                         &:nth-of-type(2) {
                             >p {
-                                font-size: 18px;
-                                color: var(--boldGrayColor);
-                                font-weight: 600;
+                                @extend .task-details-title-style;
                             }
 
                             >ul {
@@ -193,6 +200,27 @@ body {
                                         transition: all 0.5s;
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+
+                div.scheduled-tasks {
+                    >div {
+                        &:nth-of-type(1) {
+                            >i {
+                                display: inline-flex;
+                                text-align: center;
+                                color: var(--purpleColor);
+                                font-size: 20px;
+                            }
+                        }
+
+                        &:nth-of-type(2) {
+                            >p {
+                                font-size: 17px;
+                                color: var(--boldGrayColor);
+                                font-weight: 600;
                             }
                         }
                     }
@@ -356,7 +384,6 @@ body {
                                             height: 25px;
                                             border: 1px solid var(--boldGrayColor);
                                             border-radius: 50%;
-                                            transition: 0.3s ease;
                                         }
 
                                         >i {
@@ -383,9 +410,8 @@ body {
                                             visibility: hidden;
                                             transition: 0.3s ease;
                                         }
-
-
                                     }
+
                                 }
                             }
                         }

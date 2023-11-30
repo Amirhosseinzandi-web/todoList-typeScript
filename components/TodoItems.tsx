@@ -2,10 +2,11 @@
 import { useState, useEffect, useRef, memo } from "react"
 import { useDataStore } from "./Store/Store"
 import { DataListType } from "./Store/Store.types"
+import swal from "sweetalert"
 
 
 const TodoItems: React.FC = () => {
-    const { generateItems, DataList, DataListClone , toggleCompleted, removeTodo } = useDataStore(state => state)
+    const { generateItems, DataList, DataListClone, toggleCompleted, removeTodo } = useDataStore(state => state)
     const [inputVal, setInputVal] = useState("" as string)
     const [colorIndex, setColorIndex] = useState(0 as number)
     const [bgColor, setBgColor] = useState("" as string)
@@ -51,7 +52,24 @@ const TodoItems: React.FC = () => {
 
     }, [colorIndex])
 
+    const removeHandler = (id: string) => {
+        swal({
+            title: "Are you sure you want to delete?",
+            icon: "warning",
+            buttons: ["No", "Yes"]
+        }).then(res => {
+            console.log(res);
 
+            if (res) {
+                removeTodo(id);
+                swal({
+                    title: "Removed successfully",
+                    icon: "success"
+                })
+            }
+        })
+
+    }
 
     return (
         <section className="todo-items-container">
@@ -86,11 +104,11 @@ const TodoItems: React.FC = () => {
                                 DataList?.map((el: DataListType) => (
                                     <li key={el.id} className="flex items-center">
                                         <span className="ml-3" style={{ background: el.backGround }}></span>
-                                        <p>{el.text}</p>
+                                        <p className={el.completed ? ("completed") : ("")}>{el.text}</p>
                                         <p className="generated-items-time">{el.time}</p>
                                         <div onClick={(e) => toggleCompleted(el.id)} className={`${el.completed ? "hide-sample-check-tick" : "sample-check-tick"}`}></div>
                                         <i onClick={(e) => toggleCompleted(el.id)} className={`icon-tick ${el.completed ? "bi bi-check-circle" : ""}`}></i>
-                                        <i onClick={() => removeTodo(el.id)} className="bi bi-x-lg remove-todo"></i>
+                                        <i onClick={(e) => removeHandler(el.id)} className="bi bi-x-lg remove-todo"></i>
                                     </li>
                                 ))
                             }
